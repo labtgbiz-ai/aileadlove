@@ -1,30 +1,32 @@
-document.addEventListener('DOMContentLoaded',()=>{initMobileMenu();initScrollAnimations();initNavbarScroll();initParallax();initActiveNavHighlight();initPortfolioFilter();initLazyVideos();});
+document.addEventListener('DOMContentLoaded',function(){initMobileMenu();initScrollAnimations();initNavbarScroll();initParallax();initActiveNavHighlight();initPortfolioFilter();});
 
-function initLazyVideos(){
-  var videos=document.querySelectorAll('video.lazy-video');
-  if(!videos.length)return;
-  var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  var observer=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        var video=entry.target;
-        var src=video.dataset.src;
-        if(src&&!video.getAttribute('src')){
-          if(isMobile){
-            video.addEventListener('play',function onFirstPlay(){
-              if(!video.getAttribute('src')){video.setAttribute('src',src);video.load();}
-              video.removeEventListener('play',onFirstPlay);
-            },{once:true});
-          }else{
-            video.setAttribute('src',src);
-            video.load();
-          }
-        }
-        observer.unobserve(video);
-      }
+// Called when user clicks poster image or play button
+function loadVideo(posterEl){
+  var wrapper=posterEl.closest('.video-lazy-wrapper');
+  if(!wrapper)return;
+  var video=wrapper.querySelector('video');
+  var playBtn=wrapper.querySelector('.video-play-btn');
+  if(!video)return;
+  
+  // Set src from data-src
+  var src=video.dataset.src;
+  if(!video.getAttribute('src')&&src){
+    video.setAttribute('src',src);
+    video.load();
+  }
+  
+  // Hide poster and play button, show video
+  posterEl.style.display='none';
+  if(playBtn)playBtn.style.display='none';
+  video.style.display='block';
+  
+  // Play the video
+  var playPromise=video.play();
+  if(playPromise!==undefined){
+    playPromise.catch(function(){
+      // Autoplay blocked - video is visible with controls, user can tap play
     });
-  },{rootMargin:'200px 0px',threshold:0.01});
-  videos.forEach(function(video){observer.observe(video);});
+  }
 }
 
 function initMobileMenu(){var hamburger=document.querySelector('.hamburger');var navLinks=document.querySelector('.nav-links');if(!hamburger||!navLinks)return;hamburger.addEventListener('click',function(){hamburger.classList.toggle('active');navLinks.classList.toggle('active');document.body.style.overflow=navLinks.classList.contains('active')?'hidden':'';});navLinks.querySelectorAll('a').forEach(function(link){link.addEventListener('click',function(){hamburger.classList.remove('active');navLinks.classList.remove('active');document.body.style.overflow='';});});document.addEventListener('click',function(e){if(!hamburger.contains(e.target)&&!navLinks.contains(e.target)){hamburger.classList.remove('active');navLinks.classList.remove('active');document.body.style.overflow='';}});document.addEventListener('keydown',function(e){if(e.key==='Escape'){hamburger.classList.remove('active');navLinks.classList.remove('active');document.body.style.overflow='';}});}

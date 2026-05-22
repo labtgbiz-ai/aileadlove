@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initParallax();
     initActiveNavHighlight();
+    initPortfolioFilter();
 });
 
 /* ============================================
@@ -166,4 +167,39 @@ function scrollToContact() {
     if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth' });
     }
+}
+
+/* ============================================
+   PORTFOLIO FILTER
+   ============================================ */
+
+function initPortfolioFilter() {
+    const tabs = document.querySelectorAll('.portfolio-tab');
+    const items = document.querySelectorAll('.portfolio-item');
+
+    if (!tabs.length || !items.length) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const category = tab.dataset.category;
+
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.classList.remove('hidden');
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+    });
 }

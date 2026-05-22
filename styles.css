@@ -539,13 +539,17 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.video-embed iframe {
+.video-embed iframe,
+.video-embed video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    object-fit: cover;
+    background: #000;
+    border-radius: 12px;
 }
 
 .case-results {
@@ -1480,13 +1484,16 @@ body {
     overflow: hidden;
 }
 
-.portfolio-video iframe {
+.portfolio-video iframe,
+.portfolio-video video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    object-fit: cover;
+    background: #000;
 }
 
 .portfolio-label {

@@ -8,7 +8,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-// ===== LAZY IFRAME LOADING (portfolio section) =====
+// ===== LAZY IFRAME LOADING (reels section) =====
 const iframeObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -23,13 +23,34 @@ const iframeObserver = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '200px 0px' });
 
-// ===== REELS NAVIGATION (desktop buttons) =====
+// ===== SINGLE-CLICK VIDEO PLAY =====
+// Replaces poster image with iframe on click
+function playVideo(posterEl) {
+  const src = posterEl.getAttribute('data-src');
+  if (!src) return;
+  const iframe = document.createElement('iframe');
+  iframe.src = src;
+  iframe.frameBorder = '0';
+  iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+  iframe.allowFullscreen = true;
+  iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+  // Hide poster content
+  posterEl.style.cursor = 'default';
+  posterEl.onclick = null;
+  // Clear poster and insert iframe
+  while (posterEl.firstChild) posterEl.removeChild(posterEl.firstChild);
+  posterEl.appendChild(iframe);
+}
+
+// ===== REELS NAVIGATION (desktop: scroll 3 items at a time) =====
 function scrollReels(dir) {
   const track = document.getElementById('reelsTrack');
   if (!track) return;
-  const item = track.querySelector('.reel-item');
-  const itemW = item ? item.offsetWidth + 12 : 220;
-  track.scrollBy({ left: dir * itemW, behavior: 'smooth' });
+  const items = track.querySelectorAll('.reel-item');
+  if (!items.length) return;
+  const itemW = items[0].offsetWidth + 12; // width + gap
+  // Scroll 3 items at a time
+  track.scrollBy({ left: dir * itemW * 3, behavior: 'smooth' });
 }
 
 // ===== MOBILE MENU =====
@@ -79,7 +100,7 @@ window.addEventListener('scroll', () => {
 
 // ===== INIT ON DOM READY =====
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.reveal, .fade-in-up').forEach(el => revealObserver.observe(el));
   document.querySelectorAll('iframe[data-src]').forEach(el => iframeObserver.observe(el));
 
   // ===== REELS DOTS + TOUCH SWIPE =====
@@ -99,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { passive: true });
     }
 
-    // Touch swipe: snap to next/prev item on swipe
+    // Touch swipe: snap to next/prev group of items on swipe
     let touchStartX = 0;
     let touchStartScrollLeft = 0;
     let isDragging = false;

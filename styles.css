@@ -265,3 +265,115 @@ iframe[data-src]{background:#111;border-radius:inherit}
     scroll-snap-align: center;
   }
 }
+
+/* ===== AI CASE RESULTS ===== */
+.ai-case-results {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  flex-wrap: wrap;
+}
+.ai-result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+.ai-result-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+.ai-result-label {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+/* ===== FIX CASE VIDEO POSTER ON DESKTOP ===== */
+/* Use aspect-ratio instead of padding-bottom hack for grid compatibility */
+.case-video-poster {
+  position: relative;
+  width: 100%;
+  padding-bottom: 0 !important;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+}
+/* Fallback for older browsers */
+@supports not (aspect-ratio: 16 / 9) {
+  .case-video-poster {
+    padding-bottom: 56.25% !important;
+  }
+  .case-video-poster img,
+  .case-video-poster iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+}
+.case-video-poster img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.2s;
+}
+.case-video-poster iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ===== SWIPE HINT ANIMATION ===== */
+.swipe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: var(--text-light);
+  font-size: 0.88rem;
+  animation: swipeHintPulse 2.5s ease-in-out infinite;
+}
+.swipe-hint-icon {
+  font-size: 1.1rem;
+  animation: swipeHintBounce 1.5s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
+.swipe-hint-arrow {
+  animation: swipeHintSlide 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes swipeHintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes swipeHintBounce {
+  0%, 100% { transform: translateX(0) rotate(-30deg); }
+  50% { transform: translateX(6px) rotate(-30deg); }
+}
+@keyframes swipeHintSlide {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(6px); opacity: 1; }
+}
+/* Hide swipe hint on desktop (they use buttons) */
+@media (min-width: 769px) {
+  .swipe-hint {
+    display: none;
+  }
+}

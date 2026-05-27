@@ -284,15 +284,12 @@ iframe[data-src]{background:#111;border-radius:inherit}
 .ai-result-num {
   font-size: 1.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--primary-blue), var(--primary-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--primary-blue);
   line-height: 1.2;
 }
 .ai-result-label {
   font-size: 0.78rem;
-  color: var(--text-light);
+  color: var(--text-gray);
   text-align: center;
   margin-top: 0.2rem;
 }
@@ -343,33 +340,24 @@ iframe[data-src]{background:#111;border-radius:inherit}
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  color: var(--text-light);
-  font-size: 0.88rem;
-  animation: swipeHintPulse 2.5s ease-in-out infinite;
+  margin-top: 0.75rem;
+  pointer-events: none;
 }
-.swipe-hint-icon {
-  font-size: 1.1rem;
-  animation: swipeHintBounce 1.5s ease-in-out infinite;
-  display: inline-block;
-  transform-origin: bottom center;
+.swipe-hint-icon,
+.swipe-hint-text {
+  display: none;
 }
 .swipe-hint-arrow {
-  animation: swipeHintSlide 1.5s ease-in-out infinite;
+  font-size: 2rem;
+  color: var(--primary-blue);
+  opacity: 0.65;
+  animation: swipeArrowBounce 1.1s ease-in-out infinite;
   display: inline-block;
+  line-height: 1;
 }
-@keyframes swipeHintPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-@keyframes swipeHintBounce {
-  0%, 100% { transform: translateX(0) rotate(-30deg); }
-  50% { transform: translateX(6px) rotate(-30deg); }
-}
-@keyframes swipeHintSlide {
-  0%, 100% { transform: translateX(0); opacity: 0.5; }
-  50% { transform: translateX(6px); opacity: 1; }
+@keyframes swipeArrowBounce {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  50% { transform: translateX(12px); opacity: 0.9; }
 }
 /* Hide swipe hint on desktop (they use buttons) */
 @media (min-width: 769px) {

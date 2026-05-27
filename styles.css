@@ -365,3 +365,17 @@ iframe[data-src]{background:#111;border-radius:inherit}
     display: none;
   }
 }
+
+/* ===== INSTANT POSTER LOADING ===== */
+/* Gallery poster images load instantly - no animation delay */
+.gallery-video img,
+.case-video-poster img {
+  animation: none !important;
+  transition: opacity 0.15s ease !important;
+}
+/* Remove fade-in-up delay from gallery items */
+.gallery-item.fade-in-up img {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}

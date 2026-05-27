@@ -62,7 +62,7 @@ const iframeObserver = new IntersectionObserver((entries) => {
       iframeObserver.unobserve(iframe);
     }
   });
-}, { rootMargin: '200px 0px' });
+}, { rootMargin: '50px 0px' });
 
 // ===== SINGLE-CLICK VIDEO PLAY =====
 // Replaces poster image with iframe on click, pauses all other active iframes

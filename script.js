@@ -8,34 +8,32 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 
-// ===== LAZY IFRAME LOADING (reels section) =====
-const iframeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const iframe = e.target;
-      const dataSrc = iframe.getAttribute('data-src');
-      if (dataSrc && iframe.src !== dataSrc) {
-        iframe.src = dataSrc;
-        iframe.removeAttribute('data-src');
-      }
-      iframeObserver.unobserve(iframe);
-    }
-  });
-}, { rootMargin: '200px 0px' });
-
 // ===== ACTIVE IFRAME TRACKING =====
 // Tracks all currently active (playing) iframes so we can pause them
 const activeIframes = new Set();
 
 // Pause a VK iframe by reloading it without autoplay
 function pauseIframe(iframe) {
-  if (!iframe || !iframe.src) return;
+  if (!iframe) return;
+  const src = iframe.src || '';
+  if (!src || src === 'about:blank') return;
   // Remove autoplay param to pause
-  const src = iframe.src.replace(/[&?]autoplay=1/, '');
-  iframe.src = src;
+  const newSrc = src.replace(/[&?]autoplay=1/, '');
+  if (newSrc !== src) {
+    iframe.src = newSrc;
+  } else {
+    // Force reload without autoplay to stop playback
+    iframe.src = newSrc.includes('?') ? newSrc + '&autoplay=0' : newSrc + '?autoplay=0';
+  }
+}
+
+function pauseAllActive() {
+  activeIframes.forEach(iframe => pauseIframe(iframe));
+  activeIframes.clear();
 }
 
 // IntersectionObserver to auto-pause iframes when they leave the viewport
+// Works on both desktop and mobile
 const autoPauseObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (!e.isIntersecting) {
@@ -48,6 +46,24 @@ const autoPauseObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
+// ===== LAZY IFRAME LOADING (reels section) =====
+const iframeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const iframe = e.target;
+      const dataSrc = iframe.getAttribute('data-src');
+      if (dataSrc && iframe.src !== dataSrc) {
+        iframe.src = dataSrc;
+        iframe.removeAttribute('data-src');
+        // Track for auto-pause
+        activeIframes.add(iframe);
+        autoPauseObserver.observe(iframe);
+      }
+      iframeObserver.unobserve(iframe);
+    }
+  });
+}, { rootMargin: '200px 0px' });
+
 // ===== SINGLE-CLICK VIDEO PLAY =====
 // Replaces poster image with iframe on click, pauses all other active iframes
 function playVideo(posterEl) {
@@ -55,8 +71,7 @@ function playVideo(posterEl) {
   if (!src) return;
 
   // Pause all currently active iframes
-  activeIframes.forEach(iframe => pauseIframe(iframe));
-  activeIframes.clear();
+  pauseAllActive();
 
   const iframe = document.createElement('iframe');
   iframe.src = src.includes('autoplay') ? src : src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
@@ -85,6 +100,8 @@ function scrollReels(dir) {
   const items = track.querySelectorAll('.reel-item');
   if (!items.length) return;
   const itemW = items[0].offsetWidth + 12; // width + gap
+  // Pause all active iframes when navigating
+  pauseAllActive();
   // Scroll 3 items at a time
   track.scrollBy({ left: dir * itemW * 3, behavior: 'smooth' });
 }
@@ -156,6 +173,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { passive: true });
     }
 
+    // Pause active iframes when track is scrolled (mobile scroll)
+    let scrollPauseTimer = null;
+    track.addEventListener('scroll', () => {
+      if (scrollPauseTimer) clearTimeout(scrollPauseTimer);
+      scrollPauseTimer = setTimeout(() => {
+        // After scroll settles, pause any iframes not visible in track
+        const trackRect = track.getBoundingClientRect();
+        activeIframes.forEach(iframe => {
+          const iframeRect = iframe.getBoundingClientRect();
+          // Check if iframe is outside the track's visible area
+          const isVisible = (
+            iframeRect.left < trackRect.right &&
+            iframeRect.right > trackRect.left &&
+            iframeRect.top < trackRect.bottom &&
+            iframeRect.bottom > trackRect.top
+          );
+          if (!isVisible) {
+            pauseIframe(iframe);
+            activeIframes.delete(iframe);
+          }
+        });
+      }, 300);
+    }, { passive: true });
+
     // Touch swipe: snap to next/prev group of items on swipe
     let touchStartX = 0;
     let touchStartScrollLeft = 0;
@@ -181,7 +222,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetIdx = dx > 30 ? currentIdx + 1 : dx < -30 ? currentIdx - 1 : currentIdx;
       const items = track.querySelectorAll('.reel-item');
       const clampedIdx = Math.max(0, Math.min(targetIdx, items.length - 1));
+      // Pause all active iframes before switching reel
+      pauseAllActive();
       track.scrollTo({ left: clampedIdx * itemW, behavior: 'smooth' });
     }, { passive: true });
   });
+
+  // ===== PAGE-LEVEL SCROLL: pause reels iframes when section scrolls out of view =====
+  // This handles the case when user scrolls away from the reels section entirely
+  const reelsSection = document.querySelector('.reels-section');
+  if (reelsSection) {
+    const reelsSectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) {
+          // User scrolled away from reels section — pause all active iframes
+          pauseAllActive();
+        }
+      });
+    }, { threshold: 0 });
+    reelsSectionObserver.observe(reelsSection);
+  }
 });

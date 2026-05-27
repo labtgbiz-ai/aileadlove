@@ -23,23 +23,59 @@ const iframeObserver = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '200px 0px' });
 
+// ===== ACTIVE IFRAME TRACKING =====
+// Tracks all currently active (playing) iframes so we can pause them
+const activeIframes = new Set();
+
+// Pause a VK iframe by reloading it without autoplay
+function pauseIframe(iframe) {
+  if (!iframe || !iframe.src) return;
+  // Remove autoplay param to pause
+  const src = iframe.src.replace(/[&?]autoplay=1/, '');
+  iframe.src = src;
+}
+
+// IntersectionObserver to auto-pause iframes when they leave the viewport
+const autoPauseObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) {
+      const iframe = e.target;
+      if (activeIframes.has(iframe)) {
+        pauseIframe(iframe);
+        activeIframes.delete(iframe);
+      }
+    }
+  });
+}, { threshold: 0.1 });
+
 // ===== SINGLE-CLICK VIDEO PLAY =====
-// Replaces poster image with iframe on click
+// Replaces poster image with iframe on click, pauses all other active iframes
 function playVideo(posterEl) {
   const src = posterEl.getAttribute('data-src');
   if (!src) return;
+
+  // Pause all currently active iframes
+  activeIframes.forEach(iframe => pauseIframe(iframe));
+  activeIframes.clear();
+
   const iframe = document.createElement('iframe');
-  iframe.src = src;
+  iframe.src = src.includes('autoplay') ? src : src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
   iframe.frameBorder = '0';
   iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
   iframe.allowFullscreen = true;
   iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+
   // Hide poster content
   posterEl.style.cursor = 'default';
   posterEl.onclick = null;
+
   // Clear poster and insert iframe
   while (posterEl.firstChild) posterEl.removeChild(posterEl.firstChild);
   posterEl.appendChild(iframe);
+
+  // Track and observe this iframe for auto-pause
+  activeIframes.add(iframe);
+  autoPauseObserver.observe(iframe);
 }
 
 // ===== REELS NAVIGATION (desktop: scroll 3 items at a time) =====

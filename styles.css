@@ -406,3 +406,10 @@ iframe[data-src]{background:#111;border-radius:inherit}
 .partner-card-button span{font-size:1.15em;line-height:1}
 @media (max-width:768px){.partners-section{padding:4rem 0}.partners-subtitle{font-size:1rem;margin-top:-1.25rem;margin-bottom:2rem}.partner-card{grid-template-columns:1fr}.partner-card-visual{min-height:230px}.partner-monogram{width:92px;height:92px;border-radius:25px}.partner-monogram span{font-size:2.2rem}.partner-visual-label{margin-top:1.25rem}.partner-card-content{padding:2rem}.partner-card-content h3{font-size:2rem}.partner-card-lead{font-size:1rem}.partner-card-button{width:100%;justify-content:center;text-align:center}}
 @media (max-width:480px){.partner-card-content{padding:1.5rem}.partner-card-content h3{font-size:1.75rem}.partner-card-text{font-size:0.95rem}.partner-tags{margin-top:1.35rem}.partner-tags span{font-size:0.72rem;padding:0.5rem 0.7rem}}
+/* Official States Transit visual */
+.partner-card-visual{min-height:360px;background:#121923;isolation:isolate}
+.partner-card-image{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center;transition:transform 0.5s ease}
+.partner-card:hover .partner-card-image{transform:scale(1.04)}
+.partner-card-image-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(14,27,57,0.03) 0%,rgba(14,27,57,0.04) 45%,rgba(30,155,240,0.28) 100%)}
+@media (max-width:768px){.partner-card-visual{min-height:280px}.partner-card-image{object-position:center top}}
+@media (max-width:480px){.partner-card-visual{min-height:245px}}

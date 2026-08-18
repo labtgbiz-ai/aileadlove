@@ -7,3 +7,4 @@
 - [x] Replace the abstract ST partner visual with a thematic, optimized «Транзит Состояний» image and preserve responsive card behavior.
 - [x] Change the «Транзит Состояний» audience wording from entrepreneurs to people.
 - [x] Replace Vadim Nizhnik and Vladislav Khukharev founder photos with the supplied images.
+- [x] Restyle Alexey Levin’s supplied founder photo to match the visual treatment of the updated founder portraits.

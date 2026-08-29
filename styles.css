@@ -440,3 +440,26 @@ iframe[data-src]{background:#111;border-radius:inherit}
 
 /* Mobile service-card overflow fix */
 .service-header{flex-wrap:wrap}.service-icon{flex:0 0 auto}.service-header h3,.feature span{min-width:0;overflow-wrap:anywhere}.feature{min-width:0;align-items:flex-start}.feature span{flex:1}@media (max-width:768px){.service-header{width:100%}.service-header h3{width:100%}}@media (max-width:320px){.service-block{padding:1rem}.service-header h3{font-size:1.05rem}.service-description{font-size:.95rem}.feature{padding:.85rem}.feature span{font-size:.85rem}}
+
+
+/* Compact feature alignment on phones: keep each checkmark next to its text. */
+@media (max-width: 768px) {
+  .service-features .feature {
+    display: grid !important;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    column-gap: 0.85rem;
+    row-gap: 0;
+    align-items: center !important;
+  }
+  .service-features .feature-icon {
+    grid-column: 1;
+    width: 1.25rem;
+    line-height: 1.35;
+  }
+  .service-features .feature > span:not(.feature-icon) {
+    grid-column: 2;
+    min-width: 0;
+    flex: none;
+    overflow-wrap: normal;
+  }
+}

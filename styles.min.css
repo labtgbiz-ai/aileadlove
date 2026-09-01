@@ -24,3 +24,6 @@
     overflow-wrap: normal;
   }
 }
+
+/* Compact service cards: detailed content now lives on dedicated pages. */
+.compact-service{display:flex;align-items:center;justify-content:space-between;gap:22px}.compact-service .service-header{margin-bottom:0}.service-details{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:0 0 auto;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#1e9bf0,#6366f1);color:#fff;font-size:.9rem;font-weight:750;text-decoration:none;box-shadow:0 9px 20px rgba(30,155,240,.22);transition:transform .18s ease,box-shadow .18s ease}.service-details:hover{transform:translateY(-2px);box-shadow:0 13px 25px rgba(30,155,240,.3)}@media(max-width:560px){.compact-service{align-items:flex-start;flex-direction:column;gap:17px}.compact-service .service-header{width:100%}.service-details{width:100%}}

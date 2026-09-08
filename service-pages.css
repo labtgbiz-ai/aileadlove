@@ -57,3 +57,20 @@
   }
   .portfolio-reel iframe{pointer-events:auto}
 }
+
+/* Desktop-safe video bounds: keep grids and embedded players inside their parent container. */
+.video-showcase,
+.video-showcase>div,
+.vertical-reels,
+.wide-videos{width:100%;max-width:100%;min-width:0}
+.vertical-reels{overflow-x:auto;overflow-y:hidden}
+.portfolio-reel,
+.wide-video{min-width:0;max-width:100%}
+.portfolio-reel iframe,
+.wide-video iframe{display:block;width:100%;max-width:100%;min-width:0}
+
+/* Service pricing and delivery terms */
+.offer-note{display:flex;flex-direction:column;gap:5px;width:min(100%,620px);margin-top:20px;padding:16px 18px;border:1px solid rgba(30,155,240,.18);border-radius:16px;background:rgba(255,255,255,.82);box-shadow:0 10px 26px rgba(20,88,154,.06)}
+.offer-note strong{color:var(--blue-deep);font-size:1.08rem;line-height:1.2;letter-spacing:-.02em}
+.offer-note span{color:var(--muted);font-size:.86rem;line-height:1.45;font-weight:600}
+@media(max-width:560px){.offer-note{padding:14px 15px;margin-top:17px}.offer-note strong{font-size:1rem}.offer-note span{font-size:.8rem}}

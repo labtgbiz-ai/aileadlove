@@ -483,6 +483,53 @@
             font-weight: 900;
         }
 
+
+
+        /* AI Office partner recommendation */
+        .office-partner-card {
+            margin-top: 2rem;
+            padding: 2.6rem;
+            border-radius: 24px;
+            background: linear-gradient(120deg, #102d5e 0%, #1e78c5 63%, #d95778 145%);
+            color: #fff;
+            box-shadow: 0 24px 65px rgba(20, 76, 152, .2);
+            position: relative;
+            overflow: hidden;
+        }
+        .office-partner-card::after {
+            content: '';
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            right: -130px;
+            top: -160px;
+            background: radial-gradient(circle, rgba(255,255,255,.22), transparent 68%);
+        }
+        .office-partner-card > * { position: relative; z-index: 1; }
+        .office-partner-card h3 { font-size: 2rem; line-height: 1.12; margin-bottom: .8rem; }
+        .office-partner-card .office-lead { max-width: 760px; color: rgba(255,255,255,.86); font-size: 1.05rem; line-height: 1.65; }
+        .office-partner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin: 1.7rem 0; }
+        .office-partner-item { padding: 1.1rem; border: 1px solid rgba(255,255,255,.2); border-radius: 15px; background: rgba(255,255,255,.1); }
+        .office-partner-item b { display: block; font-size: .98rem; margin-bottom: .35rem; }
+        .office-partner-item span { display: block; color: rgba(255,255,255,.78); font-size: .82rem; line-height: 1.45; }
+        .office-partner-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+        .office-partner-price { font-size: 1.5rem; font-weight: 900; }
+        .office-partner-price small { display: block; font-size: .75rem; font-weight: 500; opacity: .75; margin-top: 2px; }
+        .office-partner-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .office-partner-actions a { display: inline-block; padding: .78rem 1.2rem; border-radius: 999px; text-decoration: none; font-weight: 800; font-size: .9rem; }
+        .office-partner-actions .primary { background: #fff; color: #12539a; }
+        .office-partner-actions .secondary { color: #fff; border: 1px solid rgba(255,255,255,.48); }
+        .office-partner-note { margin-top: 1.2rem; color: rgba(255,255,255,.72); font-size: .78rem; }
+        @media (max-width: 768px) {
+            .office-partner-card { padding: 2rem 1.25rem; }
+            .office-partner-card h3 { font-size: 1.65rem; }
+            .office-partner-grid { grid-template-columns: 1fr; }
+            .office-partner-footer { align-items: stretch; flex-direction: column; }
+            .office-partner-actions { width: 100%; flex-direction: column; }
+            .office-partner-actions a { text-align: center; }
+        }
+
         /* Footer */
         footer {
             background: #0f172a;
@@ -665,7 +712,7 @@
     <section class="section">
         <div class="container">
             <h2 class="section-title">Что вы рекомендуете</h2>
-            <p class="section-subtitle">Три мощных продукта, которые трансформируют бизнес наших клиентов</p>
+            <p class="section-subtitle">Четыре направления, которые помогают клиентам усиливать бизнес</p>
             <div class="cards-grid">
                 <div class="card">
                     <h3 class="card-title">🎬 AI Видеоролики</h3>
@@ -690,10 +737,23 @@
                     <div class="card-highlight">
                         <strong>Включает:</strong> Анализ, контент, настройка рекламы, аналитика
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  </div>
+  <div class="office-partner-card">
+   <h3>Рекомендуйте AI Office и приглашайте на демо</h3>
+   <p class="office-lead">Не нужно продавать готовое решение в переписке. Помогите потенциальному клиенту увидеть задачу, которую можно усилить с AI Office, и предложите разобрать её на демо с командой AILeadLove.</p>
+   <div class="office-partner-grid">
+    <div class="office-partner-item"><b>13 ролей</b><span>Готовый AI Office с 260+ подготовленными навыками и рабочими сценариями.</span></div>
+    <div class="office-partner-item"><b>Настройка под задачу</b><span>Офис адаптируется под процессы клиента, а команда помогает внедрить его в работу.</span></div>
+    <div class="office-partner-item"><b>2 месяца поддержки</b><span>Обучение команды, запуск первых задач и сопровождение на реальных сценариях.</span></div>
+   </div>
+   <div class="office-partner-footer">
+    <div class="office-partner-price">300 000 ₽<small>полный пакет внедрения</small></div>
+    <div class="office-partner-actions"><a class="primary" href="../aioffice/">Посмотреть AI Office</a><a class="secondary" href="https://shiva-ai-office.pages.dev/" target="_blank" rel="noopener noreferrer">Посмотреть кейсы</a></div>
+   </div>
+   <p class="office-partner-note">Лучший первый вопрос: «Какая задача сейчас отнимает у тебя больше всего времени?» Ваша цель — привести человека на полезное демо, а не закрыть сделку в переписке.</p>
+  </div>
+ </div>
+</section>
 
     <!-- Calculator -->
     <section class="section">

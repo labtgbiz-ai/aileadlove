@@ -154,6 +154,31 @@ window.addEventListener('scroll', () => {
 // ===== INIT ON DOM READY =====
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.reveal, .fade-in-up').forEach(el => revealObserver.observe(el));
+
+  // Mobile navigation: the button used to have no click binding.
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  if (hamburger && navLinks) {
+    hamburger.setAttribute('role', 'button');
+    hamburger.setAttribute('tabindex', '0');
+    hamburger.setAttribute('aria-expanded', 'false');
+    const setMenu = (open) => {
+      navLinks.classList.toggle('active', open);
+      hamburger.classList.toggle('active', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    const toggle = () => setMenu(!navLinks.classList.contains('active'));
+    hamburger.addEventListener('click', toggle);
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) setMenu(false);
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  }
   document.querySelectorAll('iframe[data-src]').forEach(el => iframeObserver.observe(el));
 
   // ===== REELS DOTS + TOUCH SWIPE =====

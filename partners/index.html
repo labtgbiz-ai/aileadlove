@@ -522,12 +522,40 @@
         .office-partner-actions .secondary { color: #fff; border: 1px solid rgba(255,255,255,.48); }
         .office-partner-note { margin-top: 1.2rem; color: rgba(255,255,255,.72); font-size: .78rem; }
         @media (max-width: 768px) {
+            .office-partner-bonus { align-items: flex-start; }
             .office-partner-card { padding: 2rem 1.25rem; }
             .office-partner-card h3 { font-size: 1.65rem; }
             .office-partner-grid { grid-template-columns: 1fr; }
             .office-partner-footer { align-items: stretch; flex-direction: column; }
             .office-partner-actions { width: 100%; flex-direction: column; }
             .office-partner-actions a { text-align: center; }
+        }
+
+        .office-partner-bonus {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin: 1.35rem 0 0;
+            padding: 1rem 1.15rem;
+            border: 1px solid rgba(255,255,255,.34);
+            border-radius: 16px;
+            background: rgba(255,255,255,.14);
+            color: #fff;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+        .office-partner-bonus strong { color: #fff; }
+        .office-partner-bonus span {
+            display: block;
+            color: rgba(255,255,255,.82);
+            font-size: .82rem;
+            font-weight: 500;
+            margin-top: .18rem;
+        }
+        .office-partner-bonus-icon {
+            flex: 0 0 auto;
+            font-size: 1.45rem;
+            line-height: 1;
         }
 
         /* Footer */
@@ -741,6 +769,7 @@
   <div class="office-partner-card">
    <h3>Рекомендуйте AI Office и приглашайте на демо</h3>
    <p class="office-lead">Не нужно продавать готовое решение в переписке. Помогите потенциальному клиенту увидеть задачу, которую можно усилить с AI Office, и предложите разобрать её на демо с командой AILeadLove.</p>
+   <div class="office-partner-bonus" role="note"><span class="office-partner-bonus-icon" aria-hidden="true">🎁</span><div><strong>Приведите 2 клиентов — получите AI Office в подарок</strong><span>После привлечения двух клиентов, которые подключат наши услуги, AI Office предоставляется вам бесплатно.</span></div></div>
    <div class="office-partner-grid">
     <div class="office-partner-item"><b>13 ролей</b><span>Готовый AI Office с 260+ подготовленными навыками и рабочими сценариями.</span></div>
     <div class="office-partner-item"><b>Настройка под задачу</b><span>Офис адаптируется под процессы клиента, а команда помогает внедрить его в работу.</span></div>

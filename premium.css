@@ -63,3 +63,6 @@
 /* Descriptor starts exactly where the company name starts */
 .site-nav .brand-subtitle{align-self:flex-start;margin-left:60px!important}
 @media(max-width:600px){.site-nav .brand-subtitle{margin-left:54px!important}}
+/* Compact centered descriptor under AILeadLove */
+.site-nav .brand-subtitle{width:110px;margin-top:1px!important;margin-left:60px!important;text-align:center;align-self:flex-start}
+@media(max-width:600px){.site-nav .brand-subtitle{width:110px;margin-left:54px!important;margin-top:1px!important}}

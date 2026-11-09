@@ -72,3 +72,6 @@
 /* Align mark between AILeadLove and the descriptor */
 .site-nav .brand-topline img{width:36px;height:36px;position:relative;top:7px}
 @media(max-width:600px){.site-nav .brand-topline img{width:32px;height:32px;top:5px}}
+/* Correct descriptor position for the smaller centered mark */
+.site-nav .brand-subtitle{top:-7px}
+@media(max-width:600px){.site-nav .brand-subtitle{top:-6px}}

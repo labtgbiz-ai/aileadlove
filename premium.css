@@ -34,3 +34,7 @@
 
 /* Restored trust sections */
 .trust-lead br{display:block}.why-grid-v2{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.why-grid-v2 article{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff}.why-grid-v2 b{color:var(--coral);font-size:.75rem;letter-spacing:.1em}.why-grid-v2 h3{margin:22px 0 8px;font-size:1.05rem;line-height:1.25}.why-grid-v2 p{margin:0;color:var(--muted);font-size:.9rem}.cases-teaser-v2{text-align:center}.case-proof-grid-v2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0}.case-proof-grid-v2 div{padding:24px;border:1px solid var(--line);border-radius:20px;background:#fff}.case-proof-grid-v2 strong{display:block;color:var(--ink);font-size:2rem;letter-spacing:-.05em}.case-proof-grid-v2 span{display:block;margin-top:6px;color:var(--muted);font-size:.84rem}.cases-teaser-v2 .button{margin-top:4px}@media(max-width:900px){.why-grid-v2{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.why-grid-v2,.case-proof-grid-v2{grid-template-columns:1fr}.trust-lead br{display:block}}
+/* Final header proportions and trust line width */
+.site-nav .brand-topline img{width:42px;height:42px}
+.trust-inner{justify-content:center}.trust-lead{display:block;flex:0 1 820px;width:100%;max-width:820px;text-align:center}
+@media(max-width:600px){.site-nav .brand-topline img{width:36px;height:36px}.trust-lead{max-width:100%}}

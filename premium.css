@@ -22,3 +22,6 @@
 .brand-lockup{display:flex;flex-direction:column;align-items:flex-start;gap:0;line-height:1}
 .brand-subtitle{margin:3px 0 0;font-size:.65rem;line-height:1.1;letter-spacing:.045em;text-transform:none}
 @media(max-width:900px){.brand-subtitle{display:block;font-size:.55rem}}
+
+/* Footer meaning sits directly below the brand description */
+.site-footer .footer-meaning{margin-top:18px;margin-bottom:0;color:rgba(255,255,255,.82);font-size:.72rem;line-height:1.55;display:block}.site-footer .footer-meaning span{display:block;margin-top:4px}.site-footer .footer-meaning b{color:#fff}.site-footer .footer-meta{display:flex;justify-content:space-between;gap:20px}

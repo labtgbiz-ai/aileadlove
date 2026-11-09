@@ -57,3 +57,9 @@
 .brand-subtitle{margin-left:60px}
 .site-footer .brand-subtitle{display:none}
 @media(max-width:600px){.brand-subtitle{margin-left:54px}}
+/* Inline pulsing heart immediately after the word Любовью */
+.site-footer .footer-meaning span.heart-pulse{display:inline-block!important;margin:0 0 0 4px;vertical-align:-.08em;animation:heartPulseV19 1.25s ease-in-out infinite}
+@keyframes heartPulseV19{0%,100%{transform:scale(1);opacity:.82}50%{transform:scale(1.38);opacity:1}}
+/* Descriptor starts exactly where the company name starts */
+.site-nav .brand-subtitle{align-self:flex-start;margin-left:60px!important}
+@media(max-width:600px){.site-nav .brand-subtitle{margin-left:54px!important}}

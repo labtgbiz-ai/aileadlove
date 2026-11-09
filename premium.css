@@ -53,3 +53,7 @@
 .heart-pulse{display:inline-block;color:var(--coral);font-size:1.05em;line-height:1;animation:heartPulseV16 1.35s ease-in-out infinite}
 @keyframes heartPulseV16{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.28);opacity:1}}
 @media(max-width:600px){.site-nav .brand-topline img,.site-footer .brand-topline img{width:44px;height:44px}.team-row{text-align:center}.team-row img{margin-left:auto;margin-right:auto}.site-footer .footer-brand-subtitle{margin-left:7px;font-size:.5rem}}
+/* Header descriptor aligns under AILeadLove; footer has no descriptor */
+.brand-subtitle{margin-left:60px}
+.site-footer .brand-subtitle{display:none}
+@media(max-width:600px){.brand-subtitle{margin-left:54px}}

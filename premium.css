@@ -75,3 +75,6 @@
 /* Correct descriptor position for the smaller centered mark */
 .site-nav .brand-subtitle{top:-7px}
 @media(max-width:600px){.site-nav .brand-subtitle{top:-6px}}
+/* Center descriptor under the actual AILeadLove text start */
+.site-nav .brand-subtitle{margin-left:46px!important}
+@media(max-width:600px){.site-nav .brand-subtitle{margin-left:42px!important}}

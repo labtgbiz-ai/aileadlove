@@ -69,3 +69,6 @@
 /* Lift descriptor so it sits directly beneath the text, not beneath the tall mark row */
 .site-nav .brand-subtitle{position:relative;top:-15px}
 @media(max-width:600px){.site-nav .brand-subtitle{top:-12px}}
+/* Align mark between AILeadLove and the descriptor */
+.site-nav .brand-topline img{width:36px;height:36px;position:relative;top:7px}
+@media(max-width:600px){.site-nav .brand-topline img{width:32px;height:32px;top:5px}}

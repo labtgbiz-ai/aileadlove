@@ -41,3 +41,6 @@
 /* Align descriptor exactly under the company name */
 .brand-subtitle{margin-left:52px}
 @media(max-width:600px){.brand-subtitle{margin-left:46px}}
+/* Final mobile hero scale and equal logo sizing in header/footer */
+.site-nav .brand-topline img,.site-footer .brand-topline img{width:38px;height:38px}
+@media(max-width:600px){.site-nav .brand-topline img,.site-footer .brand-topline img{width:36px;height:36px}.hero-copy h1{font-size:clamp(2.6rem,10.5vw,4rem);line-height:1.05}}
